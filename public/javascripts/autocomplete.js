@@ -43,6 +43,24 @@ const Autocomplete = {
     request.responseType = 'json';
     request.send();
   },
+  draw() {
+    while (this.listUI.lastChild) {
+      this.listUI.removeChild(this.listUI.lastChild);
+    }
+
+    if (!this.visible) {
+      this.overlay.textContent = '';
+      return;
+    }
+
+    this.matches.forEach((match) => {
+      const li = document.createElement('li');
+      li.classList.add('autocomplete-ui-choice');
+
+      li.textContent = match.name;
+      this.listUI.appendChild(li);
+    });
+  },
   init() {
     this.input = document.querySelector('input');
     this.url = '/countries?matching=';
