@@ -56,7 +56,10 @@ const Autocomplete = {
 
     if (this.bestMatchIndex !== null && this.matches.length !== 0) {
       const selected = this.matches[this.bestMatchIndex];
-      this.overlay.textContent = selected.name;
+      this.overlay.textContent = this.generateOverlayContent(
+        this.input.value,
+        selected,
+      );
     } else {
       this.overlay.textContent = '';
     }
@@ -68,6 +71,9 @@ const Autocomplete = {
       li.textContent = match.name;
       this.listUI.appendChild(li);
     });
+  },
+  generateOverlayContent(value, match) {
+    return value + match.name.slice(value.length);
   },
   reset() {
     this.visible = false;
