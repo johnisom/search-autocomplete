@@ -18,6 +18,22 @@ const Autocomplete = {
     this.input.parentNode.appendChild(overlay);
     this.overlay = overlay;
   },
+  bindEvents() {
+    this.input.addEventListener('input', this.valueChanged.bind(this));
+  },
+  valueChanged() {
+    const value = this.input.value;
+
+    if (value.length > 0) {
+      this.fetchMatches(value, (matches) => {
+        this.visible = true;
+        this.matches = matches;
+        this.draw();
+      });
+    } else {
+      this.reset();
+    }
+  },
   init() {
     this.input = document.querySelector('input');
     this.url = '/countries?matching=';
@@ -25,8 +41,12 @@ const Autocomplete = {
     this.listUI = null;
     this.overlay = null;
 
+    this.visible = false;
+    this.matches = [];
+
     this.wrapInput();
     this.createUI();
+    this.bindEvents();
   },
 };
 
