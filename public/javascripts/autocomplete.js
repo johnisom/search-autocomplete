@@ -21,6 +21,11 @@ const Autocomplete = {
   bindEvents() {
     this.input.addEventListener('input', this.valueChanged.bind(this));
     this.input.addEventListener('keydown', this.handleKeydown.bind(this));
+    this.listUI.addEventListener('mousedown', this.handleMouseDown.bind(this));
+  },
+  handleMouseDown(event) {
+    this.input.value = event.target.textContent;
+    this.reset();
   },
   handleKeydown(event) {
     switch (event.key) {
@@ -54,10 +59,18 @@ const Autocomplete = {
       }
       this.reset();
       break;
+    case 'Enter':
+      this.reset();
+      break;
+    case 'Escape':
+      this.input.value = this.previousValue;
+      this.reset();
+      break;
     }
   },
   valueChanged() {
     const value = this.input.value;
+    this.previousValue = value;
 
     if (value.length > 0) {
       this.fetchMatches(value, (matches) => {
@@ -121,6 +134,7 @@ const Autocomplete = {
     this.matches = [];
     this.bestMatchIndex = null;
     this.selectedIndex = null;
+    this.previousValue = null;
 
     this.draw();
   },
