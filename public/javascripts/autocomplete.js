@@ -19,7 +19,7 @@ const Autocomplete = {
     this.overlay = overlay;
   },
   bindEvents() {
-    this.input.addEventListener('input', this.valueChanged.bind(this));
+    this.input.addEventListener('input', this.valueChanged);
     this.input.addEventListener('keydown', this.handleKeydown.bind(this));
     this.listUI.addEventListener('mousedown', this.handleMouseDown.bind(this));
   },
@@ -150,8 +150,10 @@ const Autocomplete = {
 
     this.wrapInput();
     this.createUI();
-    this.bindEvents();
 
+    this.valueChanged = debounce(this.valueChanged.bind(this), 300);
+
+    this.bindEvents();
     this.reset();
   },
 };
