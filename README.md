@@ -1,6 +1,11 @@
 # Search Autocomplete #
 
-This is a project as a part of [Launch School][LS]’s [JS230][JS230] course.
+Search Autocomplete is an input element with added JavaScript features. When
+you start typing, names of countries that match the current input will display
+in a list, which you can select from.
 
-[LS]: https://launchschool.com/
-[JS230]: https://launchschool.com/courses/d78a8efe
+## Example Usage ##
+
+<p align="center">
+  <img alt="Screencast of web app" src="example.gif" width="500px">
+</p>
